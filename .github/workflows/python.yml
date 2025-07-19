@@ -7,5 +7,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
-      - name: Run Python Script
-        run: docker build -t python-hello .
+      - name: Build Docker Image
+        run: docker build -t soundarriya/python-dock-img .
+
+      - name: List Docker Image
+        run: docker images
+
+      - name: Log in to Docker GitHub
+        run: echo "${{secrets.PASSWORD}}" | docker login -u ${{secrets.USERNAME}} --password-stdin
+
+      - name: Push Docker Image
+        run: docker push soundarriya/python-dock-img 
